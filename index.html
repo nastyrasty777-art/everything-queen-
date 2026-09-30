@@ -1,0 +1,1095 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Queendom HQ">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Queendom HQ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0}
+img{max-width:100%}
+/* Layout: one phone-width column; black marquee header per section on a blush ground, cards outlined in ink, pink as the single action color. */
+:root{
+  --bg:#FFF0F6; --surface:#FFFFFF; --soft:#FFE0EE; --line:#F4B8D2;
+  --ink:#111111; --muted:#6B5560; --pink:#E8157A; --on-pink:#FFFFFF;
+  --hero:#000000; --hero-ink:#FFFFFF; --hero-soft:#FFC2DB;
+  --good:#12A57A; --warn:#C25E00; --bad:#C41E3A;
+  --c-influencer:#E8157A; --c-networking:#0E8F6A; --c-reality:#D65E00; --c-film:#A37A00;
+  --c-tv:#6A3FE0; --c-black:#B3124E; --c-sources:#0088A8;
+  --t-reality:#C4116A; --t-beef:#D65A22; --t-influencer:#9C7400; --t-cancel:#6A46E0; --t-relationship:#D6335B;
+  --t-money:#1E8F5A; --t-culture:#2166D6; --t-career:#0E8E8B; --t-excellence:#8A5A00; --t-community:#4A3FB8;
+  --display:'Anton',Impact,'Arial Narrow',sans-serif;
+  --body:'Poppins',system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#150A10; --surface:#22121A; --soft:#33182A; --line:#4E2A3D;
+  --ink:#FBEFF5; --muted:#C9A9B9; --pink:#FF4FA3; --on-pink:#1A0710;
+  --hero:#000000; --hero-ink:#FFFFFF; --hero-soft:#FF9FCB;
+  --good:#4FD6A6; --warn:#FFA24D; --bad:#FF6B81;
+  --c-influencer:#FF5FAE; --c-networking:#4FD6A6; --c-reality:#FF9A4D; --c-film:#F2C94C;
+  --c-tv:#B39CFF; --c-black:#FF7A9C; --c-sources:#5FD0EA;
+  --t-reality:#FF5FAE; --t-beef:#FF9257; --t-influencer:#FFD24D; --t-cancel:#B79CFF; --t-relationship:#FF7A97;
+  --t-money:#5FDE9F; --t-culture:#7FB0FF; --t-career:#5FE0DC; --t-excellence:#E8B84B; --t-community:#B3ABFF;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#150A10; --surface:#22121A; --soft:#33182A; --line:#4E2A3D;
+  --ink:#FBEFF5; --muted:#C9A9B9; --pink:#FF4FA3; --on-pink:#1A0710;
+  --hero:#000000; --hero-ink:#FFFFFF; --hero-soft:#FF9FCB;
+  --good:#4FD6A6; --warn:#FFA24D; --bad:#FF6B81;
+  --c-influencer:#FF5FAE; --c-networking:#4FD6A6; --c-reality:#FF9A4D; --c-film:#F2C94C;
+  --c-tv:#B39CFF; --c-black:#FF7A9C; --c-sources:#5FD0EA;
+  --t-reality:#FF5FAE; --t-beef:#FF9257; --t-influencer:#FFD24D; --t-cancel:#B79CFF; --t-relationship:#FF7A97;
+  --t-money:#5FDE9F; --t-culture:#7FB0FF; --t-career:#5FE0DC; --t-excellence:#E8B84B; --t-community:#B3ABFF;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.app{max-width:680px;margin:0 auto;padding-bottom:64px}
+.pad{padding-inline:16px}
+button,input,select,textarea{font-family:var(--body)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+a{color:var(--pink)}
+h1,h2,h3{text-wrap:balance}
+
+/* top bar + dropdown */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--hero);color:var(--hero-ink);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:16px;letter-spacing:.05em;color:var(--hero-ink);background:none;border:none;cursor:pointer;padding:0}
+.brand svg{width:28px;height:22px}
+.menu{position:relative}
+.menu-btn{display:flex;align-items:center;gap:8px;background:var(--pink);color:var(--on-pink);border:none;border-radius:999px;padding:9px 16px;font-weight:700;font-size:14px;cursor:pointer}
+.menu-btn .chev{transition:transform .15s}
+.menu-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.menu-list{position:absolute;right:0;top:calc(100% + 8px);background:var(--surface);color:var(--ink);border:2px solid var(--ink);border-radius:18px;min-width:250px;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,.25);display:grid;gap:2px}
+.menu-list button{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;align-items:center;text-align:left;background:none;border:none;border-radius:12px;padding:10px 12px;cursor:pointer;color:var(--ink)}
+.menu-list button:hover,.menu-list button[aria-current="page"]{background:var(--soft)}
+.menu-list .mi{grid-row:span 2;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--hero);color:var(--hero-ink);font-family:var(--display);font-size:14px}
+.menu-list strong{font-size:14px}
+.menu-list small{color:var(--muted);font-size:12px}
+
+/* hero */
+.hero{background:var(--hero);color:var(--hero-ink);padding:22px 16px 28px;border-radius:0 0 28px 28px;position:relative;overflow:hidden}
+.hero .heart{position:absolute;pointer-events:none}
+.kicker{font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin:0 0 4px;text-align:center}
+.big{font-family:var(--display);font-weight:400;font-size:clamp(46px,14vw,84px);line-height:.95;text-transform:uppercase;margin:0;text-align:center;color:var(--hero-ink)}
+.mrow .big{font-size:clamp(34px,11vw,84px);min-width:0;flex:1}
+.tagline{text-align:center;color:var(--hero-soft);font-size:14px;margin:8px auto 0;max-width:34ch}
+.mrow{display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;z-index:1}
+.arrow{background:var(--pink);border:none;color:var(--on-pink);width:42px;height:42px;border-radius:50%;font-size:20px;font-weight:700;cursor:pointer;flex-shrink:0}
+.hero-stats{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:1}
+.hstat{border:1.5px solid #ffffff40;border-radius:999px;padding:6px 14px;font-size:13px;color:var(--hero-ink)}
+.hstat b{font-variant-numeric:tabular-nums}
+
+/* shared controls */
+.tabs{display:flex;gap:4px;margin:20px 0 16px;background:var(--surface);border:2px solid var(--ink);padding:4px;border-radius:999px}
+.tab{flex:1;border:none;background:none;color:var(--ink);padding:10px 6px;border-radius:999px;font-weight:600;font-size:14px;cursor:pointer}
+.tab.on{background:var(--pink);color:var(--on-pink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips.scroll{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.chip{border:2px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 12px;border-radius:999px;font-weight:500;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;flex:none}
+.chip .dot{width:9px;height:9px;border-radius:50%}
+.chip.on{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.cta{width:100%;padding:14px;border:none;border-radius:999px;background:var(--pink);color:var(--on-pink);font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 4px 0 var(--ink)}
+.cta:active{transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
+.cta:disabled{opacity:.55;cursor:default}
+.ghost{background:var(--surface);border:2px solid var(--ink);color:var(--ink);padding:6px 13px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer}
+.ghost.on{background:var(--pink);border-color:var(--pink);color:var(--on-pink)}
+.note{color:var(--muted);font-size:13px;margin:0}
+.sec-h{font-family:var(--display);font-weight:400;font-size:26px;text-transform:uppercase;margin:26px 0 10px;display:flex;align-items:center;gap:10px;line-height:1.1}
+.sec-h .dot{width:14px;height:14px;border-radius:50%;flex:none}
+.card{background:var(--surface);border:2px solid var(--ink);border-radius:18px;padding:14px 16px}
+.stack{display:grid;gap:12px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tag{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--soft);color:var(--ink)}
+.tag.dark{background:var(--ink);color:var(--bg)}
+.form{display:grid;gap:10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+label.f{display:grid;gap:4px;font-size:12px;font-weight:600;color:var(--muted);min-width:0}
+input[type=text],input[type=number],input[type=date],input[type=url],select,textarea{width:100%;min-width:0;background:var(--surface);border:2px solid var(--line);color:var(--ink);border-radius:12px;padding:9px 11px;font-size:14px}
+textarea{min-height:64px;resize:vertical}
+.empty{text-align:center;color:var(--muted);padding:28px 12px;border:2px dashed var(--line);border-radius:18px}
+.banner{background:var(--soft);border-radius:14px;padding:10px 12px;font-size:13px;color:var(--ink)}
+[hidden]{display:none!important}
+
+/* landing */
+.home-hero .big{font-size:clamp(50px,15vw,92px)}
+.edit-link{position:absolute;top:12px;right:12px;z-index:2;background:none;border:1.5px solid #ffffff55;color:var(--hero-ink);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer}
+.tiles{display:grid;gap:14px;margin-top:22px}
+.tile{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;text-align:left;background:var(--surface);border:2px solid var(--ink);border-left:10px solid var(--tc);border-radius:20px;padding:16px;cursor:pointer;color:var(--ink);width:100%}
+.tile h2{font-family:var(--display);font-weight:400;font-size:28px;text-transform:uppercase;margin:0;line-height:1}
+.tile p{margin:0;font-size:13.5px;color:var(--muted);grid-column:1}
+.tile .live{grid-column:1/-1;margin-top:8px;padding-top:10px;border-top:2px dashed var(--line);font-size:14px;color:var(--ink);min-width:0}
+.tile .go{grid-row:1/3;grid-column:2;width:40px;height:40px;border-radius:50%;background:var(--pink);color:var(--on-pink);display:grid;place-items:center;font-size:20px;font-weight:700}
+.quote{font-style:italic;font-weight:500;text-align:center;color:var(--muted);margin:26px 0 0}
+
+/* events */
+.ev{background:var(--surface);border:2px solid var(--ink);border-left:8px solid var(--c);border-radius:18px;padding:14px 16px;display:grid;gap:8px}
+.ev h4{margin:0;font-size:16px;font-weight:700;line-height:1.3}
+.meta{color:var(--muted);font-size:13px}
+.ev .why{font-size:14px;margin:0}
+.save{margin-left:auto}
+.day{font-family:var(--display);font-size:20px;text-transform:uppercase;color:var(--pink);margin:10px 0 0}
+.status{border:2px solid var(--ink);border-radius:999px;padding:4px 12px;font-weight:600;font-size:12px;cursor:pointer;background:var(--surface);color:var(--ink)}
+.status[data-s="Requested invite"]{background:var(--soft)}
+.status[data-s="Going"]{background:var(--pink);border-color:var(--pink);color:var(--on-pink)}
+.status[data-s="Went"]{background:var(--ink);color:var(--bg)}
+.src{display:inline-flex;align-items:center;gap:2px;background:var(--soft);border-radius:999px;padding:4px 4px 4px 12px;font-size:13.5px;font-weight:600}
+.src a{text-decoration:none}
+.src button{background:none;border:none;color:var(--muted);font-size:18px;width:28px;height:28px;border-radius:50%;cursor:pointer;line-height:1}
+
+/* tea */
+.badge{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;color:#fff;align-self:flex-start;justify-self:start}
+.spark{border:2px solid var(--ink);border-radius:20px;overflow:hidden;background:var(--surface)}
+.spark-top{padding:10px 16px;color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;display:flex;justify-content:space-between;gap:8px}
+.spark-body{padding:20px 16px 16px;border-bottom:2px dashed var(--line)}
+.spark-body p{margin:0;font-size:20px;font-weight:600;line-height:1.35}
+.spark-foot{padding:12px 16px 16px;display:flex;gap:8px;flex-wrap:wrap}
+.tea-item{background:var(--surface);border:2px solid var(--ink);border-radius:18px;padding:13px 15px;display:grid;gap:8px}
+.tea-item h4{margin:0;font-size:15.5px;line-height:1.35}
+.tea-item p{margin:0;font-size:14px}
+.tea-item .sum{color:var(--muted);font-size:13px}
+
+/* weight */
+.wt-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;position:relative;z-index:1}
+.wt-stat{border:1.5px solid #ffffff40;border-radius:16px;padding:10px 8px;text-align:center}
+.wt-stat b{display:block;font-family:var(--display);font-weight:400;font-size:28px;line-height:1;font-variant-numeric:tabular-nums;color:var(--hero-ink)}
+.wt-stat span{font-size:11.5px;color:var(--hero-soft)}
+.chart-wrap{overflow-x:auto}
+.chart-wrap svg{display:block;width:100%;min-width:320px;height:auto}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.phase{border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:var(--surface)}
+.phase-h{background:var(--ink);color:var(--bg);padding:10px 14px}
+.phase-h h3{margin:0;font-family:var(--display);font-weight:400;font-size:22px;text-transform:uppercase;letter-spacing:.02em}
+.phase-h p{margin:2px 0 0;font-size:12.5px;opacity:.85}
+.wk{display:grid;grid-template-columns:46px 1fr 92px;gap:10px;align-items:center;padding:10px 14px;border-top:2px dashed var(--line)}
+.wk:first-of-type{border-top:none}
+.wk .n{font-family:var(--display);font-size:20px;line-height:1;text-align:center}
+.wk .n small{display:block;font-family:var(--body);font-size:11px;color:var(--muted);margin-top:3px}
+.wk .focus{font-size:14px;font-weight:500;min-width:0}
+.wk .focus .tg{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:400}
+.wk .star{color:var(--pink);font-weight:700;font-size:12px}
+.wk input{padding:8px;text-align:center;font-variant-numeric:tabular-nums}
+.wk.now{background:var(--soft)}
+.wk .res{font-size:11px;text-align:center;margin-top:3px;font-weight:600}
+.habits{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.habit{border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer;color:var(--ink);display:grid;gap:2px}
+.habit b{font-size:14px}
+.habit span{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.habit.on{background:var(--pink);border-color:var(--pink);color:var(--on-pink)}
+.habit.on span{color:var(--on-pink)}
+.week-dots{display:flex;gap:6px;justify-content:space-between}
+.wd{flex:1;text-align:center;font-size:11px;color:var(--muted)}
+.wd i{display:block;height:8px;border-radius:4px;background:var(--line);margin-bottom:4px}
+.plate{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:center}
+.plate svg{width:120px;height:120px}
+.plate dl{margin:0;display:grid;gap:8px}
+.plate dt{font-weight:700;font-size:14px}
+.plate dd{margin:0;font-size:13px;color:var(--muted)}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:8px 6px;border-bottom:2px dashed var(--line)}
+th{font-size:12px;color:var(--muted);font-weight:600}
+td.num{font-variant-numeric:tabular-nums}
+.alert{border:2px solid var(--bad);border-radius:18px;padding:14px 16px;background:var(--surface)}
+.alert h3{margin:0 0 6px;font-size:15px;color:var(--bad)}
+.alert ul,.card ul{margin:0;padding-left:18px;font-size:14px}
+.xbtn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px}
+.login{min-height:100vh;display:grid;place-items:center;background:var(--hero);padding-inline:16px}
+.login-card{width:100%;max-width:360px;display:grid;gap:14px;justify-items:center;text-align:center}
+.login-card label{width:100%;text-align:left}
+.refresh{background:none;border:none;color:var(--pink);font-weight:700;font-size:13px;cursor:pointer;padding:0;text-decoration:underline}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:60}
+@media (max-width:420px){.two{grid-template-columns:1fr}.plate{grid-template-columns:1fr;justify-items:center}.three{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="login" id="loginView" hidden>
+  <form class="login-card" id="loginForm">
+    <svg viewBox="0 0 28 22" width="56" height="44" aria-hidden="true"><path d="M2 18 L4 5 L10 11 L14 2 L18 11 L24 5 L26 18 Z" fill="var(--pink)"/><rect x="2" y="18.5" width="24" height="3" rx="1" fill="var(--hero-ink)"/></svg>
+    <h1 class="big" style="font-size:52px">Queendom HQ</h1>
+    <p class="tagline">Enter your password to open your hub.</p>
+    <label class="f" for="pw" style="color:var(--hero-soft)">Password<input type="password" id="pw" autocomplete="current-password" required></label>
+    <button class="cta" type="submit">Open my hub</button>
+    <p class="note" id="loginMsg" role="alert" style="color:var(--hero-soft);min-height:1.5em"></p>
+  </form>
+</div>
+<div class="app" id="appView" hidden>
+  <header class="topbar">
+    <button class="brand" id="brandBtn" aria-label="Go to home">
+      <svg viewBox="0 0 28 22" aria-hidden="true"><path d="M2 18 L4 5 L10 11 L14 2 L18 11 L24 5 L26 18 Z" fill="var(--pink)"/><rect x="2" y="18.5" width="24" height="3" rx="1" fill="var(--hero-ink)"/></svg>
+      QUEEN UNCUT
+    </button>
+    <div class="menu">
+      <button class="menu-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false" aria-controls="menuList">
+        <span id="menuLabel">Menu</span>
+        <svg class="chev" width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+      </button>
+      <div class="menu-list" id="menuList" role="menu" hidden>
+        <button role="menuitem" data-go="home"><span class="mi">Q</span><strong>Home</strong><small>Your landing page</small></button>
+        <button role="menuitem" data-go="events"><span class="mi">E</span><strong>LA Event Planner</strong><small>Premieres, mixers, parties</small></button>
+        <button role="menuitem" data-go="tea"><span class="mi">T</span><strong>Tea Lab</strong><small>Trending topics and prompts</small></button>
+        <button role="menuitem" data-go="weight"><span class="mi">W</span><strong>My 26-Week Journey</strong><small>Weigh-ins, habits, plan</small></button>
+        <button role="menuitem" id="signOutBtn"><span class="mi">×</span><strong>Sign out</strong><small>Lock the hub on this device</small></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOME -->
+  <section id="view-home">
+    <div class="hero home-hero">
+      <svg class="heart" width="74" height="66" viewBox="0 0 24 22" style="right:-12px;top:30px;transform:rotate(18deg)" aria-hidden="true"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="var(--pink)"/></svg>
+      <svg class="heart" width="40" height="36" viewBox="0 0 24 22" style="left:-8px;bottom:22px;transform:rotate(-16deg)" aria-hidden="true"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="var(--hero-ink)"/></svg>
+      <button class="edit-link" id="editLandingBtn" hidden>Edit</button>
+      <p class="kicker" id="landKicker">Queen Uncut Media presents</p>
+      <h1 class="big" id="landTitle">The Queendom HQ</h1>
+      <p class="tagline" id="landNote">Everything I need, in one place. Plans, tea and progress.</p>
+      <p class="tagline" id="todayLabel" style="margin-top:14px;font-weight:600"></p>
+    </div>
+    <div class="pad">
+      <div class="card form" id="landEditor" hidden style="margin-top:16px">
+        <label class="f" for="landKickerIn">Small line above the headline<input type="text" id="landKickerIn" maxlength="60"></label>
+        <label class="f" for="landTitleIn">Headline<input type="text" id="landTitleIn" maxlength="40"></label>
+        <label class="f" for="landNoteIn">Welcome note<textarea id="landNoteIn" maxlength="240"></textarea></label>
+        <label class="f" for="landQuoteIn">Quote at the bottom<input type="text" id="landQuoteIn" maxlength="120"></label>
+        <div class="row"><button class="cta" id="saveLandingBtn" style="flex:1">Save landing page</button><button class="ghost" id="cancelLandingBtn">Cancel</button></div>
+      </div>
+      <div class="tiles">
+        <button class="tile" data-go="events" style="--tc:var(--c-influencer)">
+          <h2>LA Event Planner</h2><span class="go" aria-hidden="true">›</span>
+          <p>Premieres, reality TV mixers, creator events and Black LA social life.</p>
+          <div class="live" id="tileEvents">Loading your plan…</div>
+        </button>
+        <button class="tile" data-go="tea" style="--tc:var(--c-tv)">
+          <h2>Tea Lab</h2><span class="go" aria-hidden="true">›</span>
+          <p>Today's headlines and discussion prompts for the Reality Recap.</p>
+          <div class="live" id="tileTea">Loading today's prompt…</div>
+        </button>
+        <button class="tile" data-go="weight" style="--tc:var(--c-networking)">
+          <h2>My 26-Week Journey</h2><span class="go" aria-hidden="true">›</span>
+          <p>297 to 220. Weekly weigh-ins, daily habits and the plan.</p>
+          <div class="live" id="tileWeight">Loading your progress…</div>
+        </button>
+      </div>
+      <p class="quote" id="landQuote">"Where reality TV gets the royal treatment."</p>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section id="view-events" hidden>
+    <div class="hero">
+      <svg class="heart" width="64" height="58" viewBox="0 0 24 22" style="right:-14px;top:14px;transform:rotate(18deg)" aria-hidden="true"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="var(--pink)"/></svg>
+      <p class="kicker">The Queendom's LA calendar</p>
+      <div class="mrow">
+        <button class="arrow" id="prevMonth" aria-label="Previous month">‹</button>
+        <h1 class="big" id="monthTitle">November</h1>
+        <button class="arrow" id="nextMonth" aria-label="Next month">›</button>
+      </div>
+      <p class="tagline">Premieres, parties and people worth meeting in Hollywood.</p>
+    </div>
+    <div class="pad">
+      <div class="tabs" role="tablist">
+        <button class="tab on" data-etab="find">Find events</button>
+        <button class="tab" data-etab="plan">My plan <span id="planCount"></span></button>
+        <button class="tab" data-etab="pages">IG pages</button>
+      </div>
+
+      <div id="etab-find" class="stack">
+        <div class="chips" id="catChips"></div>
+        <p class="note" id="foundNote"></p>
+        <div id="foundList" class="stack"></div>
+      </div>
+
+      <div id="etab-plan" class="stack" hidden>
+        <div class="row"><button class="ghost" id="toggleAddEvent">Add an event yourself</button></div>
+        <form class="card form" id="addEventForm" hidden>
+          <label class="f" for="evTitle">Event name<input type="text" id="evTitle" required></label>
+          <div class="two">
+            <label class="f" for="evDate">Date<input type="date" id="evDate"></label>
+            <label class="f" for="evTime">Time<input type="text" id="evTime" placeholder="8 PM"></label>
+          </div>
+          <label class="f" for="evVenue">Venue<input type="text" id="evVenue"></label>
+          <label class="f" for="evCat">Category<select id="evCat"></select></label>
+          <label class="f" for="evUrl">Link (RSVP, tickets, Instagram post)<input type="url" id="evUrl" placeholder="https://"></label>
+          <label class="f" for="evNotes">Notes<textarea id="evNotes" placeholder="Who invited you, dress code, plus-one"></textarea></label>
+          <button class="cta" type="submit">Add to plan</button>
+        </form>
+        <div id="planList" class="stack"></div>
+        <p class="note">Tap a status to move it along: Interested, Requested invite, Going, Went.</p>
+      </div>
+
+      <div id="etab-pages" class="stack" hidden>
+        <div class="card form">
+          <strong>Instagram pages to track</strong>
+          <p class="note">The weekly event search looks up each of these organizers on Eventbrite, Posh, Partiful, Linktree and their own sites. Instagram itself can't be read automatically, so tap a handle to check its newest flyers.</p>
+          <div class="row" id="igList"></div>
+          <form class="row" id="igForm" style="flex-wrap:nowrap">
+            <input type="text" id="igInput" placeholder="@handle or paste a profile link" aria-label="Instagram handle or link">
+            <button class="ghost" type="submit">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEA -->
+  <section id="view-tea" hidden>
+    <div class="hero">
+      <svg class="heart" width="60" height="54" viewBox="0 0 24 22" style="left:-12px;top:16px;transform:rotate(-16deg)" aria-hidden="true"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="var(--pink)"/></svg>
+      <p class="kicker">The Reality Recap</p>
+      <h1 class="big">Tea Lab</h1>
+      <p class="tagline" id="teaDate"></p>
+    </div>
+    <div class="pad">
+      <div class="tabs" role="tablist">
+        <button class="tab on" data-ttab="trending">Trending</button>
+        <button class="tab" data-ttab="bank">Prompt bank</button>
+        <button class="tab" data-ttab="saved">Saved</button>
+      </div>
+      <div id="ttab-trending" class="stack">
+        <p class="note" id="trendUpdated"></p>
+        <div class="chips scroll" id="trendChips"></div>
+        <div id="trendList" class="stack"></div>
+      </div>
+      <div id="ttab-bank" class="stack" hidden>
+        <div id="sparkMount"></div>
+        <div class="chips scroll" id="bankChips"></div>
+        <div id="bankList" class="stack"></div>
+      </div>
+      <div id="ttab-saved" class="stack" hidden>
+        <form class="card form" id="ideaForm">
+          <label class="f" for="ideaInput">Add your own idea</label>
+          <div class="row" style="flex-wrap:nowrap"><input type="text" id="ideaInput" placeholder="Type an idea"><button class="ghost" type="submit">Add</button></div>
+        </form>
+        <div class="chips" id="savedFilters"></div>
+        <div id="savedList" class="stack"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEIGHT -->
+  <section id="view-weight" hidden>
+    <div class="hero">
+      <svg class="heart" width="64" height="58" viewBox="0 0 24 22" style="right:-14px;bottom:10px;transform:rotate(14deg)" aria-hidden="true"><path d="M12 21s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="var(--pink)"/></svg>
+      <p class="kicker">Sep 28, 2026 to Mar 28, 2027</p>
+      <h1 class="big">297 → 220</h1>
+      <p class="tagline">Already down 25 lbs. Anywhere between the two pace lines is a win.</p>
+      <div class="wt-stats">
+        <div class="wt-stat"><b id="wsWeek">1</b><span>Week of 26</span></div>
+        <div class="wt-stat"><b id="wsLatest">–</b><span>Latest weigh-in</span></div>
+        <div class="wt-stat"><b id="wsDown">–</b><span>Lbs down since start</span></div>
+      </div>
+    </div>
+    <div class="pad">
+      <div class="tabs" role="tablist">
+        <button class="tab on" data-wtab="today">Today</button>
+        <button class="tab" data-wtab="plan">26-week plan</button>
+        <button class="tab" data-wtab="guide">Guide</button>
+      </div>
+
+      <div id="wtab-today" class="stack">
+        <div class="banner" id="privacyNote">Your weigh-ins and habits are behind your password. Only you can see them.</div>
+        <h2 class="sec-h" style="margin-top:6px">Daily habits</h2>
+        <div class="row" style="justify-content:space-between">
+          <button class="ghost" id="habitPrev" aria-label="Previous day">‹</button>
+          <strong id="habitDay"></strong>
+          <button class="ghost" id="habitNext" aria-label="Next day">›</button>
+        </div>
+        <div class="habits" id="habitGrid"></div>
+        <div class="week-dots" id="weekDots"></div>
+
+        <h2 class="sec-h">Log a weigh-in</h2>
+        <form class="card form" id="weighForm">
+          <div class="two">
+            <label class="f" for="wDate">Date<input type="date" id="wDate" required></label>
+            <label class="f" for="wWeight">Weight (lbs)<input type="number" id="wWeight" step="0.1" min="80" max="600" inputmode="decimal" required></label>
+          </div>
+          <div class="two">
+            <label class="f" for="wWaist">Waist (in, optional)<input type="number" id="wWaist" step="0.1" min="10" max="90" inputmode="decimal"></label>
+            <label class="f" for="wHips">Hips (in, optional)<input type="number" id="wHips" step="0.1" min="10" max="90" inputmode="decimal"></label>
+          </div>
+          <label class="f" for="wFeel">How I feel<input type="text" id="wFeel" maxlength="120"></label>
+          <button class="cta" type="submit">Save weigh-in</button>
+        </form>
+
+        <h2 class="sec-h">Progress</h2>
+        <div class="card stack">
+          <div class="legend"><span><i style="background:var(--pink)"></i>Stretch, 3 lbs/week</span><span><i style="background:var(--muted)"></i>Steady, 2 lbs/week</span><span><i style="background:var(--ink)"></i>My weight</span></div>
+          <div class="chart-wrap" id="chart"></div>
+        </div>
+
+        <h2 class="sec-h">Measurements</h2>
+        <div class="card"><div class="tbl-wrap" id="logTable"></div></div>
+      </div>
+
+      <div id="wtab-plan" class="stack" hidden>
+        <p class="note">Enter your weekly weigh-in right in the table. Same morning each week. Starred weeks are check-ins.</p>
+        <div id="phaseList" class="stack"></div>
+      </div>
+
+      <div id="wtab-guide" class="stack" hidden>
+        <h2 class="sec-h" style="margin-top:6px">Daily targets</h2>
+        <div class="card"><ul>
+          <li>Protein 120+ g, eaten first at every meal</li>
+          <li>Water about 100 oz</li>
+          <li>Fiber 25–30 g</li>
+          <li>Steps building from 5k to 10k</li>
+          <li>Strength 2–3 times a week</li>
+          <li>Sleep 7–8 hours</li>
+          <li>Don't skip meals. Weigh in weekly, same morning.</li>
+          <li>Take Ozempic as prescribed. Dose changes are your doctor's call.</li>
+        </ul></div>
+        <h2 class="sec-h">Build your plate</h2>
+        <div class="card plate">
+          <svg viewBox="0 0 120 120" role="img" aria-label="Plate split into half veggies, a quarter protein, a quarter smart carbs">
+            <circle cx="60" cy="60" r="56" fill="var(--surface)" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M60 60 L60 8 A52 52 0 0 0 60 112 Z" fill="var(--c-networking)"/>
+            <path d="M60 60 L60 8 A52 52 0 0 1 112 60 Z" fill="var(--pink)"/>
+            <path d="M60 60 L112 60 A52 52 0 0 1 60 112 Z" fill="var(--c-film)"/>
+          </svg>
+          <dl>
+            <div><dt>Half veggies</dt><dd>Broccoli, salad, peppers, green beans</dd></div>
+            <div><dt>Quarter protein</dt><dd>Chicken, fish, eggs, Greek yogurt, tofu</dd></div>
+            <div><dt>Quarter smart carbs</dt><dd>Beans, potatoes, rice, fruit, oats</dd></div>
+          </dl>
+        </div>
+        <h2 class="sec-h">Stuck 3+ weeks?</h2>
+        <div class="card"><p style="margin:0">Check weekend habits and protein. Trim oils, sauces and drinks. Add 2,000 steps. Don't slash food.</p></div>
+        <h2 class="sec-h">Feeling queasy?</h2>
+        <div class="card"><p style="margin:0">Smaller meals, eat slowly, skip greasy food, sip water all day, and walk to help with constipation.</p></div>
+        <div class="alert">
+          <h3>Call your doctor if you have</h3>
+          <ul>
+            <li>Severe stomach pain, especially if it spreads to your back</li>
+            <li>Trouble keeping fluids down</li>
+            <li>Dizziness or dark urine</li>
+            <li>Weight loss of 5+ lbs a week for several weeks</li>
+          </ul>
+        </div>
+        <p class="note">General guidance, not medical advice. Review with your doctor.</p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- helpers ---------- */
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+function nowIso(){ return new Date().toISOString(); }
+function pad2(n){ return String(n).padStart(2,'0'); }
+function ymd(d){ return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); }
+function parseYmd(s){ var p=String(s||'').split('-'); return new Date(+p[0],(+p[1]||1)-1,+p[2]||1,12); }
+function fmtDay(s){ if(!s) return ''; var d=parseYmd(s); if(isNaN(d)) return s; return d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}); }
+function safeUrl(u){ return /^https?:\/\//i.test(u||'') ? u : ''; }
+var toastT;
+function toast(msg){ var t=$('toast'); t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(function(){t.hidden=true;},2200); }
+function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){ return null; } }
+
+var db=null, user=null, uid=null;
+var DB_MSG='Could not reach your storage. Check your connection and try again.';
+
+/* ---------- routing + dropdown ---------- */
+var VIEWS={home:'Menu',events:'LA Event Planner',tea:'Tea Lab',weight:'My Journey'};
+var current='home';
+function go(v){
+  if(!VIEWS[v]) v='home';
+  current=v;
+  Object.keys(VIEWS).forEach(function(k){ $('view-'+k).hidden = (k!==v); });
+  $('menuLabel').textContent = VIEWS[v];
+  Array.prototype.forEach.call(document.querySelectorAll('#menuList [data-go]'),function(b){
+    if(b.getAttribute('data-go')===v) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current');
+  });
+  closeMenu();
+  window.scrollTo(0,0);
+  store('hq:view',v);
+}
+function closeMenu(){ $('menuList').hidden=true; $('menuBtn').setAttribute('aria-expanded','false'); }
+$('menuBtn').onclick=function(e){ e.stopPropagation(); var open=$('menuList').hidden; $('menuList').hidden=!open; $('menuBtn').setAttribute('aria-expanded',String(open)); if(open){ var f=$('menuList').querySelector('button'); f&&f.focus(); } };
+document.addEventListener('click',function(e){ if(!e.target.closest('.menu')) closeMenu(); });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeMenu(); } });
+Array.prototype.forEach.call(document.querySelectorAll('[data-go]'),function(b){ b.onclick=function(){ go(b.getAttribute('data-go')); }; });
+$('brandBtn').onclick=function(){ go('home'); };
+
+function wireTabs(attr, prefix, onChange){
+  var btns=document.querySelectorAll('['+attr+']');
+  Array.prototype.forEach.call(btns,function(b){
+    b.onclick=function(){
+      var name=b.getAttribute(attr);
+      Array.prototype.forEach.call(btns,function(x){ x.classList.toggle('on',x===b); $(prefix+x.getAttribute(attr)).hidden=(x!==b); });
+      if(onChange) onChange(name);
+    };
+  });
+}
+
+/* ======================= HOME ======================= */
+var landing={kicker:'Queen Uncut Media presents',title:'The Queendom HQ',note:'Everything I need, in one place. Plans, tea and progress.',quote:'"Where reality TV gets the royal treatment."'};
+function renderLanding(){
+  $('landKicker').textContent=landing.kicker; $('landTitle').textContent=landing.title;
+  $('landNote').textContent=landing.note; $('landQuote').textContent=landing.quote;
+  $('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+}
+$('editLandingBtn').onclick=function(){
+  $('landKickerIn').value=landing.kicker; $('landTitleIn').value=landing.title; $('landNoteIn').value=landing.note; $('landQuoteIn').value=landing.quote;
+  $('landEditor').hidden=false; $('landTitleIn').focus();
+};
+$('cancelLandingBtn').onclick=function(){ $('landEditor').hidden=true; };
+$('saveLandingBtn').onclick=async function(){
+  var next={kicker:$('landKickerIn').value.trim(),title:$('landTitleIn').value.trim()||'The Queendom HQ',note:$('landNoteIn').value.trim(),quote:$('landQuoteIn').value.trim(),updatedAt:nowIso()};
+  landing=next; renderLanding(); $('landEditor').hidden=true;
+  if(db){ try{ await db.doc('meta/landing').set(next); toast('Landing page saved'); }catch(e){ toast('Could not save. You may not have edit access.'); } }
+  else toast(DB_MSG);
+};
+function renderTiles(){
+  // events
+  var today=ymd(new Date());
+  var upcoming=plan.filter(function(p){ return p.date && p.date>=today && p.status!=='Went'; }).sort(function(a,b){return a.date.localeCompare(b.date);});
+  $('tileEvents').innerHTML = upcoming.length
+    ? '<b>Next up:</b> '+esc(upcoming[0].title)+' <span class="meta">('+esc(fmtDay(upcoming[0].date))+')</span><br><span class="meta">'+plan.length+' saved in your plan</span>'
+    : (plan.length? plan.length+' events saved. None dated yet.' : 'No events saved yet. Tap to browse what\'s coming up.');
+  // tea
+  var item=todaysBankItem();
+  $('tileTea').innerHTML='<b>Today\'s prompt:</b> '+esc(item.prompt)+(trending.length?'<br><span class="meta">'+trending.filter(function(t){return t.dateKey===latestTrendDay();}).length+' fresh headlines</span>':'');
+  // weight
+  var latest=latestWeight();
+  var wk=currentWeek();
+  if(latest){
+    var tgt=weekRow(wk);
+    $('tileWeight').innerHTML='<b>'+latest.weight+' lbs</b> on '+esc(fmtDay(latest.date))+' <span class="meta">| Week '+wk+' targets: '+tgt.stretch+' stretch, '+tgt.steady+' steady</span>';
+  } else $('tileWeight').innerHTML='Week '+wk+' of 26. Log your first weigh-in to start the chart.';
+}
+
+/* ======================= EVENTS ======================= */
+var MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+var CATS=[
+  {id:'influencer',label:'Influencer',color:'var(--c-influencer)'},
+  {id:'networking',label:'Networking',color:'var(--c-networking)'},
+  {id:'reality',label:'Reality TV',color:'var(--c-reality)'},
+  {id:'film',label:'Movie premieres',color:'var(--c-film)'},
+  {id:'tv',label:'Show premieres',color:'var(--c-tv)'},
+  {id:'black',label:'Black LA social',color:'var(--c-black)'},
+  {id:'sources',label:'From my IG pages',color:'var(--c-sources)'}
+];
+function cat(id){ for(var i=0;i<CATS.length;i++) if(CATS[i].id===id) return CATS[i]; return CATS[0]; }
+var STATUSES=['Interested','Requested invite','Going','Went'];
+var DEFAULT_IG=['blkeventsla','theblackbouquet.la','losangelesfunevents','thesourcela','dapoetrylounge_co','blackmarketflea'];
+var evY=2026, evM=10;
+(function(){ var n=new Date(); if(n.getFullYear()>2026 || (n.getFullYear()===2026 && n.getMonth()>10)){ evY=n.getFullYear(); evM=n.getMonth(); } })();
+var picked=CATS.map(function(c){return c.id;});
+var found=[], plan=[], igPages=[], igLoaded=false;
+function monthKey(){ return evY+'-'+pad2(evM+1); }
+
+$('prevMonth').onclick=function(){ evM--; if(evM<0){evM=11;evY--;} renderEvents(); };
+$('nextMonth').onclick=function(){ evM++; if(evM>11){evM=0;evY++;} renderEvents(); };
+wireTabs('data-etab','etab-');
+$('evCat').innerHTML=CATS.map(function(c){return '<option value="'+c.id+'">'+esc(c.label)+'</option>';}).join('');
+$('toggleAddEvent').onclick=function(){ var f=$('addEventForm'); f.hidden=!f.hidden; $('toggleAddEvent').textContent=f.hidden?'Add an event yourself':'Close'; if(!f.hidden) $('evTitle').focus(); };
+
+function eventCard(e, extra){
+  var c=cat(e.category), url=safeUrl(e.url);
+  var invite=/invite/i.test(e.access||'');
+  var when=[e.date?fmtDay(e.date):(e.dateText||'Date TBD'), e.time, [e.venue,e.area].filter(Boolean).join(', ')].filter(Boolean).join('  |  ');
+  return '<div class="ev" style="--c:'+c.color+'">'+
+    '<h4>'+esc(e.title)+'</h4><div class="meta">'+esc(when)+'</div>'+
+    (e.why?'<p class="why">'+esc(e.why)+'</p>':'')+
+    '<div class="row">'+
+      (e.access&&e.access!=='Unknown'?'<span class="tag'+(invite?' dark':'')+'">'+esc(e.access)+'</span>':'')+
+      (e.price?'<span class="tag">'+esc(e.price)+'</span>':'')+
+      (e.organizer?'<span class="tag">@'+esc(e.organizer)+'</span>':'')+
+      (url?'<a href="'+esc(url)+'" target="_blank" rel="noopener" style="font-size:13px;font-weight:700">Event page</a>':'')+
+      (extra||'')+
+    '</div></div>';
+}
+function planKey(e){ return (e.foundId||e.id); }
+function renderEvents(){
+  $('monthTitle').textContent=MONTHS[evM]+(evY!==2026?' '+String(evY).slice(2):'');
+  $('planCount').textContent=plan.length?'('+plan.length+')':'';
+  // chips
+  $('catChips').innerHTML=CATS.map(function(c){ var on=picked.indexOf(c.id)>-1; return '<button class="chip'+(on?' on':'')+'" aria-pressed="'+on+'" data-c="'+c.id+'"><span class="dot" style="background:'+c.color+'"></span>'+esc(c.label)+'</button>'; }).join('');
+  Array.prototype.forEach.call($('catChips').querySelectorAll('.chip'),function(b){ b.onclick=function(){ var id=b.getAttribute('data-c'); var i=picked.indexOf(id); if(i>-1) picked.splice(i,1); else picked.push(id); renderEvents(); }; });
+  // found
+  var mk=monthKey();
+  var list=found.filter(function(e){ return (e.month===mk || (e.date||'').slice(0,7)===mk) && picked.indexOf(e.category)>-1; });
+  var last=found.reduce(function(m,e){ return (e.pulledAt||'')>m?e.pulledAt:m; },'');
+  $('foundNote').innerHTML = (last ? 'Updated '+esc(new Date(last).toLocaleDateString(undefined,{month:'short',day:'numeric'}))+'. A search runs every Monday. Premieres and parties often post 2–4 weeks out. ' : 'No search results yet. ')+'<button class="refresh" data-refresh="events">Search now</button>';
+  wireRefresh($('foundNote'));
+  var saved={}; plan.forEach(function(p){ if(p.foundId) saved[p.foundId]=true; });
+  var html='';
+  CATS.forEach(function(c){
+    var items=list.filter(function(e){return e.category===c.id;}).sort(function(a,b){return (a.date||'9').localeCompare(b.date||'9');});
+    if(!items.length) return;
+    html+='<h3 class="sec-h"><span class="dot" style="background:'+c.color+'"></span>'+esc(c.label)+'</h3><div class="stack">'+
+      items.map(function(e){ var s=!!saved[e.id]; return eventCard(e,'<button class="ghost save'+(s?' on':'')+'" data-save="'+esc(e.id)+'">'+(s?'Saved':'Save to plan')+'</button>'); }).join('')+'</div>';
+  });
+  $('foundList').innerHTML = html || (db ? '<div class="empty">Nothing found for '+MONTHS[evM]+' in these categories yet. Try other months, or add events you hear about under My plan.</div>' : '');
+  Array.prototype.forEach.call($('foundList').querySelectorAll('[data-save]'),function(b){ b.onclick=function(){ toggleSaveFound(b.getAttribute('data-save')); }; });
+  renderPlan(); renderIg(); renderTiles();
+}
+async function toggleSaveFound(fid){
+  if(!db){ toast(DB_MSG); return; }
+  var existing=plan.filter(function(p){return p.foundId===fid;})[0];
+  try{
+    if(existing){ await db.doc('plan/'+existing.id).delete(); toast('Removed from plan'); }
+    else{
+      var e=found.filter(function(x){return x.id===fid;})[0]; if(!e) return;
+      await db.collection('plan').add({title:e.title||'',date:e.date||'',dateText:e.dateText||'',time:e.time||'',venue:e.venue||'',area:e.area||'',access:e.access||'',price:e.price||'',url:e.url||'',why:e.why||'',category:e.category||'networking',organizer:e.organizer||'',foundId:fid,status:'Interested',notes:'',createdAt:nowIso()});
+      toast('Saved to plan');
+    }
+  }catch(err){ toast('Could not save that change.'); }
+}
+var openNotes=null;
+function renderPlan(){
+  if(!plan.length){ $('planList').innerHTML='<div class="empty">Your plan is empty. Save events from Find events, or add ones from invites and flyers.</div>'; return; }
+  var sorted=plan.slice().sort(function(a,b){return (a.date||'9999').localeCompare(b.date||'9999');});
+  var html='', lastLabel=null;
+  sorted.forEach(function(e){
+    var label=e.date?fmtDay(e.date)+(e.date.slice(0,4)!=='2026'?', '+e.date.slice(0,4):''):'Date TBD';
+    if(label!==lastLabel){ html+='<div class="day">'+esc(label)+'</div>'; lastLabel=label; }
+    var extra='<span style="flex-basis:100%;height:0"></span>'+
+      '<button class="status" data-s="'+esc(e.status||'Interested')+'" data-status="'+e.id+'">'+esc(e.status||'Interested')+'</button>'+
+      '<button class="ghost" data-notes="'+e.id+'">'+(e.notes?'Edit notes':'Add notes')+'</button>'+
+      '<button class="ghost" style="margin-left:auto" data-del="'+e.id+'">Remove</button>';
+    var card=eventCard(e,extra);
+    var notesHtml = openNotes===e.id
+      ? '<textarea id="notes-'+e.id+'" data-notesin="'+e.id+'" placeholder="Outfit, people to meet, how to get on the list">'+esc(e.notes||'')+'</textarea>'
+      : (e.notes?'<p class="meta" style="margin:0">'+esc(e.notes)+'</p>':'');
+    html+=card.replace(/<\/div>$/, notesHtml+'</div>');
+  });
+  $('planList').innerHTML=html;
+  var q=function(s){return $('planList').querySelectorAll(s);};
+  Array.prototype.forEach.call(q('[data-status]'),function(b){ b.onclick=function(){ var id=b.getAttribute('data-status'); var e=plan.filter(function(p){return p.id===id;})[0]; var nx=STATUSES[(STATUSES.indexOf(e.status||'Interested')+1)%STATUSES.length]; if(db) db.doc('plan/'+id).update({status:nx}).catch(function(){toast('Could not update status.');}); }; });
+  Array.prototype.forEach.call(q('[data-notes]'),function(b){ b.onclick=function(){ var id=b.getAttribute('data-notes'); openNotes=openNotes===id?null:id; renderPlan(); var t=$('notes-'+id); if(t) t.focus(); }; });
+  Array.prototype.forEach.call(q('[data-notesin]'),function(t){ t.onblur=function(){ var id=t.getAttribute('data-notesin'); if(db) db.doc('plan/'+id).update({notes:t.value}).catch(function(){}); }; });
+  Array.prototype.forEach.call(q('[data-del]'),function(b){ b.onclick=function(){ if(db) db.doc('plan/'+b.getAttribute('data-del')).delete().then(function(){toast('Removed from plan');}); }; });
+}
+$('addEventForm').onsubmit=async function(ev){
+  ev.preventDefault();
+  if(!db){ toast(DB_MSG); return; }
+  var t=$('evTitle').value.trim(); if(!t) return;
+  try{
+    await db.collection('plan').add({title:t,date:$('evDate').value,time:$('evTime').value.trim(),venue:$('evVenue').value.trim(),category:$('evCat').value,url:$('evUrl').value.trim(),notes:$('evNotes').value.trim(),status:'Interested',access:'',createdAt:nowIso()});
+    ['evTitle','evDate','evTime','evVenue','evUrl','evNotes'].forEach(function(i){$(i).value='';});
+    $('addEventForm').hidden=true; $('toggleAddEvent').textContent='Add an event yourself'; toast('Added to plan');
+  }catch(e){ toast('Could not add the event.'); }
+};
+function cleanHandle(s){ var m=String(s).trim().match(/instagram\.com\/([A-Za-z0-9._]+)/i); return (m?m[1]:String(s).trim().replace(/^@/,'')).replace(/[^A-Za-z0-9._]/g,'').toLowerCase(); }
+function renderIg(){
+  var list=igPages.length?igPages:(igLoaded?[]:DEFAULT_IG.map(function(h){return {id:h,handle:h};}));
+  $('igList').innerHTML = list.length ? list.map(function(p){ return '<span class="src"><a href="https://www.instagram.com/'+encodeURIComponent(p.handle)+'/" target="_blank" rel="noopener">@'+esc(p.handle)+'</a><button aria-label="Remove @'+esc(p.handle)+'" data-rmig="'+esc(p.id)+'">×</button></span>'; }).join('') : '<p class="note">No pages yet. Add one below.</p>';
+  Array.prototype.forEach.call($('igList').querySelectorAll('[data-rmig]'),function(b){ b.onclick=function(){ if(!db){toast(DB_MSG);return;} db.doc('igPages/'+b.getAttribute('data-rmig')).delete().then(function(){toast('Page removed');}); }; });
+}
+$('igForm').onsubmit=async function(e){
+  e.preventDefault();
+  var h=cleanHandle($('igInput').value); if(!h) return;
+  if(!db){ toast(DB_MSG); return; }
+  try{ await db.doc('igPages/'+h).set({handle:h,addedAt:nowIso()}); $('igInput').value=''; toast('@'+h+' added. It joins the next weekly search.'); }
+  catch(err){ toast('Could not add that page.'); }
+};
+
+/* ======================= TEA LAB ======================= */
+var TCATS = [
+  {id:'reality',label:'Reality TV Recaps',color:'var(--t-reality)'},
+  {id:'beef',label:'Celebrity Beef',color:'var(--t-beef)'},
+  {id:'influencer',label:'Influencer Drama',color:'var(--t-influencer)'},
+  {id:'cancel',label:'Cancel Culture',color:'var(--t-cancel)'},
+  {id:'relationship',label:'Relationship Tea',color:'var(--t-relationship)'},
+  {id:'money',label:'Scams & Money',color:'var(--t-money)'},
+  {id:'culture',label:'Culture & Race',color:'var(--t-culture)'},
+  {id:'career',label:'Career Moves',color:'var(--t-career)'},
+  {id:'excellence',label:'Black Excellence',color:'var(--t-excellence)'},
+  {id:'community',label:'Relatable Life',color:'var(--t-community)'}
+];
+function tcat(id){ for(var i=0;i<TCATS.length;i++) if(TCATS[i].id===id) return TCATS[i]; return {id:id,label:id||'Other',color:'var(--muted)'}; }
+var BANK = [
+    {id:'r1',category:'reality',prompt:"Rank this season's cast from ‘here for love’ to ‘here for the follower count’ — defend your #1 pick."},
+    {id:'r2',category:'reality',prompt:"A couple everyone loved just broke up on-air — was it the edit, the pressure, or was it never real?"},
+    {id:'r3',category:'reality',prompt:"The season's certified villain finally got their sit-down interview. Are they sorry, or just sorry they got caught?"},
+    {id:'r4',category:'reality',prompt:"Compare this season to the fan-favorite season — what's missing and what's actually better?"},
+    {id:'r5',category:'reality',prompt:"A recoupling just blindsided the whole cast. Who made the right move and who's cooked?"},
+    {id:'r6',category:'reality',prompt:"The reunion just aired — who won the reunion and who should've stayed home?"},
+    {id:'r7',category:'reality',prompt:"A contestant got dragged online for something they said in a confessional. Fair game, or unfair edit?"},
+    {id:'r8',category:'reality',prompt:"Two cast members are clearly more into the producers' storyline than each other. Call it out."},
+    {id:'r9',category:'reality',prompt:"This show keeps casting the same ‘type.’ What does that say about who they think the audience wants to see?"},
+    {id:'r10',category:'reality',prompt:"A reality star's ex is telling ‘the real story’ on a totally different platform than the show airs on. Cross-reference it with what actually aired."},
+    {id:'be1',category:'beef',prompt:"Name this week's biggest celebrity beef and give the real winner of the internet, not just the loudest one."},
+    {id:'be2',category:'beef',prompt:"An old interview clip resurfaced and it's messy. Cancelable, or just a product of the times?"},
+    {id:'be3',category:'beef',prompt:"Two celebrities are clearly subtweeting each other. Read between the lines and call the winner."},
+    {id:'be4',category:'beef',prompt:"A collab just dropped between two people who supposedly don't like each other. What's really going on?"},
+    {id:'be5',category:'beef',prompt:"Someone got ‘exposed’ for copying another creator's whole concept. Coincidence, or straight theft?"},
+    {id:'be6',category:'beef',prompt:"A celebrity clapped back at a troll and the internet is divided. Justified, or too much?"},
+    {id:'be7',category:'beef',prompt:"Rank this week's most unnecessary celebrity beef from pettiest to actually valid."},
+    {id:'be8',category:'beef',prompt:"A celebrity feud from years ago just got new context. Does it change how you see it now?"},
+    {id:'be9',category:'beef',prompt:"Two musicians are in a public feud over money, credit, or a donation pledge and it's escalating fast. Break down who actually has the receipts."},
+    {id:'i1',category:'influencer',prompt:"A creator got called out for a brand deal that didn't match their ‘values.’ Hypocrite, or just bag-chasing?"},
+    {id:'i2',category:'influencer',prompt:"Someone's ‘day in my life’ video doesn't add up with their finances. Break down the red flags."},
+    {id:'i3',category:'influencer',prompt:"Two influencers who used to be besties are clearly not anymore. What probably happened?"},
+    {id:'i4',category:'influencer',prompt:"Someone's ‘spiraling’ online — what does that even mean, and is the internet being mean or exactly right?"},
+    {id:'i5',category:'influencer',prompt:"Someone got dragged for a ‘tone-deaf’ post. Was it actually that bad, or is the internet just bored?"},
+    {id:'i6',category:'influencer',prompt:"A viral trend got credited to the wrong creator. Talk about who really deserves the shine."},
+    {id:'i7',category:'influencer',prompt:"A creator issued a non-apology apology. Break down what they should've said instead."},
+    {id:'i8',category:'influencer',prompt:"Someone's engagement suspiciously dropped after ‘the drama.’ Is cancel culture even real anymore, or just a vibe shift?"},
+    {id:'c1',category:'cancel',prompt:"Two people did basically the same thing this week. One got dragged, one got a pass. Why?"},
+    {id:'c2',category:'cancel',prompt:"Someone got ‘cancelled’ for five minutes and it clearly didn't stick. What does that say about cancel culture now?"},
+    {id:'c3',category:'cancel',prompt:"A celebrity apologized and the internet still isn't satisfied. What would actually be enough?"},
+    {id:'c4',category:'cancel',prompt:"Compare how the internet treats a Black woman's mistake versus everyone else's for the same thing."},
+    {id:'c5',category:'cancel',prompt:"Someone's getting piled on for a joke that wasn't even that deep. Is this hill worth dying on?"},
+    {id:'c6',category:'cancel',prompt:"A brand dropped someone over old posts. Fair accountability, or performative PR move?"},
+    {id:'c7',category:'cancel',prompt:"Who's the one person getting away with something everyone else got dragged for?"},
+    {id:'c8',category:'cancel',prompt:"A celebrity's outfit or look got dragged online and their team clapped back at the critics. Whose side are you on?"},
+    {id:'rel1',category:'relationship',prompt:"A celebrity couple just announced a split out of nowhere. What are the receipts nobody's talking about yet?"},
+    {id:'rel2',category:'relationship',prompt:"Someone's ex just went public with ‘the real story.’ Whose side are you actually on?"},
+    {id:'rel3',category:'relationship',prompt:"A ‘situationship’ just went viral for being messy. Give your honest read on what went wrong."},
+    {id:'rel4',category:'relationship',prompt:"Someone got exposed for cheating via a screenshot. Walk through the reveal like you're telling your bestie."},
+    {id:'rel5',category:'relationship',prompt:"A couple went from soft launch to hard launch in record time. Speed run, or the real deal?"},
+    {id:'rel6',category:'relationship',prompt:"A celebrity's ex just liked a suspicious post. Overanalyze it like it's your job."},
+    {id:'rel7',category:'relationship',prompt:"Someone's dating a much younger or older partner and the internet has opinions. Give the balanced hot take."},
+    {id:'rel8',category:'relationship',prompt:"A trailer or promo for someone's new project just exposed private relationship details neither side confirmed before. Fair game, or an overshare?"},
+    {id:'m1',category:'money',prompt:"Someone got exposed for running a scam under a wellness or business persona. Break down how it worked."},
+    {id:'m2',category:'money',prompt:"A public figure owes people money and it's finally coming out. Walk through the timeline."},
+    {id:'m3',category:'money',prompt:"Someone's ‘investment opportunity’ was actually a pyramid scheme. What were the red flags from day one?"},
+    {id:'m4',category:'money',prompt:"A celebrity got scammed out of a shocking amount and the internet has jokes. Empathy, or clown the situation?"},
+    {id:'m5',category:'money',prompt:"Someone's lifestyle clearly doesn't match their income and people are starting to ask questions."},
+    {id:'m6',category:'money',prompt:"A ‘financial guru’ influencer got exposed for not following their own advice."},
+    {id:'m7',category:'money',prompt:"A celebrity got named as a victim in a scam or Ponzi scheme that had nothing to do with them. What can regular people actually learn from how it happened?"},
+    {id:'cu1',category:'culture',prompt:"A Black creator or celebrity had a huge week — talk about why representation like this actually matters."},
+    {id:'cu2',category:'culture',prompt:"Someone got dragged for ‘code-switching’ criticism. Unpack both sides of that conversation."},
+    {id:'cu3',category:'culture',prompt:"A brand's ad got called out for missing the mark culturally. What should they have done instead?"},
+    {id:'cu4',category:'culture',prompt:"Colorism showed up in a casting decision again. Name it and talk about why it keeps happening."},
+    {id:'cu5',category:'culture',prompt:"A think-piece about Black women in reality TV is going viral. Agree, disagree, or it's complicated?"},
+    {id:'cu6',category:'culture',prompt:"Someone said something ignorant on a podcast and it's spreading. Break down why it's not ‘just a joke.’"},
+    {id:'cu7',category:'culture',prompt:"Someone got called out for ‘colonizing’ a phrase, trend, or style that didn't start with them. Break down why credit actually matters here."},
+    {id:'ca1',category:'career',prompt:"A celebrity just got dropped from a brand deal — was it deserved or an overreaction?"},
+    {id:'ca2',category:'career',prompt:"Someone's making a surprise comeback after ‘disappearing.’ What's the real story?"},
+    {id:'ca3',category:'career',prompt:"A casting announcement has people either hyped or side-eyeing. Give your honest take."},
+    {id:'ca4',category:'career',prompt:"Someone pivoted careers completely out of nowhere. Genius rebrand, or red flag?"},
+    {id:'ca5',category:'career',prompt:"A celebrity's new project is getting mixed reviews — is the criticism fair, or is the internet just hating?"},
+    {id:'ca6',category:'career',prompt:"A big brand or franchise made a surprising recasting decision. Good move, or a total fumble?"},
+    {id:'ex1',category:'excellence',prompt:"A Black celebrity just hit a major career milestone (a star, an award, a historic first) — break down why this moment matters beyond the headline."},
+    {id:'ex2',category:'excellence',prompt:"Someone in the culture just did something incredibly generous behind the scenes. Give them their flowers on air."},
+    {id:'ex3',category:'excellence',prompt:"A Black-owned brand or business just had a massive win. Talk about why supporting it matters."},
+    {id:'ex4',category:'excellence',prompt:"Two Black creators who came up together are both thriving right now. Celebrate the come-up instead of comparing them."},
+    {id:'ex5',category:'excellence',prompt:"A veteran in the industry finally got recognition they deserved decades ago. Why did it take this long?"},
+    {id:'ex6',category:'excellence',prompt:"Someone quietly funded or uplifted their whole community and it just came out. Spotlight it before it gets buried under other news."},
+    {id:'co1',category:'community',prompt:"Ask your audience a simple nostalgia question (first apartment rent, first job, first phone) and read out the wildest answers."},
+    {id:'co2',category:'community',prompt:"Share a ‘you had to be there’ family or friend group story and ask your listeners for their version."},
+    {id:'co3',category:'community',prompt:"A wholesome viral moment between two Black celebrities or friends is going around. Talk about why moments like that hit different."},
+    {id:'co4',category:'community',prompt:"Something ridiculous but harmless went viral this week (a kid's reaction, a prank, a mishap). Just have fun with it."},
+    {id:'co5',category:'community',prompt:"Ask your audience to weigh in on a genuinely low-stakes debate (best fried chicken spot, best comfort food, best cookout song) and read the chaos."},
+    {id:'co6',category:'community',prompt:"A ‘day in my life’ or ‘get ready with me’ trend is going around. Riff on your own version live on the show."}
+  ];
+var trending=[], topics=[], cycleOrder=null, cycleStart=null;
+var trendFilter='all', bankFilter='all', savedFilter='all', shuffled=null;
+function epochDay(){ return Math.floor(Date.now()/86400000); }
+function hashCode(s){ var h=0; for(var i=0;i<s.length;i++){ h=(h<<5)-h+s.charCodeAt(i); h|=0; } return h; }
+function todaysBankItem(){
+  if(cycleOrder && cycleOrder.length===BANK.length){ var i=((epochDay()-cycleStart)%cycleOrder.length+cycleOrder.length)%cycleOrder.length; return BANK[cycleOrder[i]]; }
+  return BANK[Math.abs(hashCode(new Date().toDateString()))%BANK.length];
+}
+function latestTrendDay(){ return trending.reduce(function(m,t){ return (t.dateKey||'')>m?t.dateKey:m; },''); }
+function linked(kind,ref){ for(var i=0;i<topics.length;i++){ var t=topics[i]; if(t.source===kind && (kind==='bank'?t.bankId===ref:t.trendingId===ref)) return t; } return null; }
+async function toggleFlag(kind,item,flag){
+  if(!db){ toast(DB_MSG); return; }
+  var doc=linked(kind,item.id);
+  try{
+    if(doc){ var p={}; p[flag]=!doc[flag]; await db.doc('topics/'+doc.id).update(p); }
+    else if(kind==='bank'){ await db.collection('topics').add({title:item.prompt,category:item.category,source:'bank',bankId:item.id,used:flag==='used',favorite:flag==='favorite',createdAt:nowIso()}); }
+    else { await db.collection('topics').add({title:item.title,hook:item.summary||'',category:item.category,source:'trending',trendingId:item.id,sourceName:item.sourceName||'',sourceUrl:item.sourceUrl||'',used:flag==='used',favorite:flag==='favorite',createdAt:nowIso()}); }
+  }catch(e){ toast('Could not save that.'); }
+}
+function flagBtns(kind,id,doc){
+  return '<div class="row"><button class="ghost'+(doc&&doc.used?' on':'')+'" data-k="'+kind+'" data-f="used" data-id="'+esc(id)+'">'+(doc&&doc.used?'Used':'Mark used')+'</button>'+
+    '<button class="ghost'+(doc&&doc.favorite?' on':'')+'" data-k="'+kind+'" data-f="favorite" data-id="'+esc(id)+'">'+(doc&&doc.favorite?'Favorited':'Favorite')+'</button></div>';
+}
+function wireFlags(root){
+  Array.prototype.forEach.call(root.querySelectorAll('[data-k]'),function(b){ b.onclick=function(){
+    var k=b.getAttribute('data-k'), id=b.getAttribute('data-id');
+    var item = k==='bank' ? BANK.filter(function(x){return x.id===id;})[0] : trending.filter(function(x){return x.id===id;})[0];
+    if(item) toggleFlag(k,item,b.getAttribute('data-f'));
+  }; });
+}
+function chipRow(el,cur,onPick){
+  el.innerHTML='<button class="chip'+(cur==='all'?' on':'')+'" data-c="all">All</button>'+TCATS.map(function(c){return '<button class="chip'+(cur===c.id?' on':'')+'" data-c="'+c.id+'"><span class="dot" style="background:'+c.color+'"></span>'+esc(c.label)+'</button>';}).join('');
+  Array.prototype.forEach.call(el.querySelectorAll('.chip'),function(b){ b.onclick=function(){ onPick(b.getAttribute('data-c')); }; });
+}
+wireTabs('data-ttab','ttab-');
+function renderTea(){
+  $('teaDate').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
+  // trending
+  chipRow($('trendChips'),trendFilter,function(c){trendFilter=c;renderTea();});
+  var last=trending.reduce(function(m,t){return (t.pulledAt||'')>m?t.pulledAt:m;},'');
+  $('trendUpdated').innerHTML = (last?'Pulled '+esc(new Date(last).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}))+' from The Shade Room, Page Six, Bossip, Baller Alert and ET. Refreshes every morning. ':'No headlines yet. ')+'<button class="refresh" data-refresh="tea">Pull now</button>';
+  wireRefresh($('trendUpdated'));
+  var tl=trending.filter(function(t){return trendFilter==='all'||t.category===trendFilter;}).sort(function(a,b){return (b.pulledAt||'').localeCompare(a.pulledAt||'')||String(a.id).localeCompare(String(b.id));});
+  $('trendList').innerHTML = tl.length ? tl.map(function(t){ var c=tcat(t.category), u=safeUrl(t.sourceUrl);
+    return '<div class="tea-item"><span class="badge" style="background:'+c.color+'">'+esc(c.label)+'</span><h4>'+esc(t.title)+'</h4>'+(t.summary?'<p class="sum">'+esc(t.summary)+'</p>':'')+
+      (u?'<a href="'+esc(u)+'" target="_blank" rel="noopener" style="font-size:13px;font-weight:700">Read on '+esc(t.sourceName||'source')+'</a>':'')+flagBtns('trending',t.id,linked('trending',t.id))+'</div>'; }).join('')
+    : '<div class="empty">No headlines in this category yet.</div>';
+  wireFlags($('trendList'));
+  // spark
+  var it=shuffled||todaysBankItem(), c=tcat(it.category), d=linked('bank',it.id);
+  $('sparkMount').innerHTML='<div class="spark"><div class="spark-top" style="background:'+c.color+'"><span>'+(shuffled?'Shuffled prompt':'Today\'s prompt')+'</span><span>'+esc(c.label)+'</span></div><div class="spark-body"><p>'+esc(it.prompt)+'</p></div><div class="spark-foot">'+
+    '<button class="ghost'+(d&&d.used?' on':'')+'" data-k="bank" data-f="used" data-id="'+it.id+'">'+(d&&d.used?'Used':'Use this')+'</button>'+
+    '<button class="ghost'+(d&&d.favorite?' on':'')+'" data-k="bank" data-f="favorite" data-id="'+it.id+'">'+(d&&d.favorite?'Favorited':'Favorite')+'</button>'+
+    '<button class="ghost" id="shuffleBtn">Shuffle</button>'+(shuffled?'<button class="ghost" id="backToday">Back to today</button>':'')+'</div></div>';
+  wireFlags($('sparkMount'));
+  $('shuffleBtn').onclick=function(){ shuffled=BANK[Math.floor(Math.random()*BANK.length)]; renderTea(); };
+  if($('backToday')) $('backToday').onclick=function(){ shuffled=null; renderTea(); };
+  // bank
+  chipRow($('bankChips'),bankFilter,function(c){bankFilter=c;renderTea();});
+  $('bankList').innerHTML=BANK.filter(function(b){return bankFilter==='all'||b.category===bankFilter;}).map(function(b){ var c=tcat(b.category);
+    return '<div class="tea-item"><span class="badge" style="background:'+c.color+'">'+esc(c.label)+'</span><p>'+esc(b.prompt)+'</p>'+flagBtns('bank',b.id,linked('bank',b.id))+'</div>'; }).join('');
+  wireFlags($('bankList'));
+  // saved
+  var F=[['all','All'],['favorite','Favorites'],['used','Used'],['trending','From trending'],['bank','From bank'],['custom','My ideas']];
+  $('savedFilters').innerHTML=F.map(function(f){return '<button class="chip'+(savedFilter===f[0]?' on':'')+'" data-sf="'+f[0]+'">'+f[1]+'</button>';}).join('');
+  Array.prototype.forEach.call($('savedFilters').querySelectorAll('[data-sf]'),function(b){ b.onclick=function(){ savedFilter=b.getAttribute('data-sf'); renderTea(); }; });
+  var sl=topics.slice().sort(function(a,b){return (b.createdAt||'').localeCompare(a.createdAt||'');}).filter(function(t){
+    if(savedFilter==='favorite') return t.favorite; if(savedFilter==='used') return t.used; if(savedFilter==='all') return true; return t.source===savedFilter; });
+  $('savedList').innerHTML = sl.length ? sl.map(function(t){ var c=t.category?tcat(t.category):null, u=safeUrl(t.sourceUrl);
+    return '<div class="tea-item">'+(c?'<span class="badge" style="background:'+c.color+'">'+esc(c.label)+'</span>':'')+'<h4>'+esc(t.title)+'</h4>'+(t.hook?'<p class="sum">'+esc(t.hook)+'</p>':'')+
+      (u?'<a href="'+esc(u)+'" target="_blank" rel="noopener" style="font-size:13px;font-weight:700">Read on '+esc(t.sourceName||'source')+'</a>':'')+
+      '<div class="row"><button class="ghost'+(t.favorite?' on':'')+'" data-tp="favorite" data-id="'+t.id+'">'+(t.favorite?'Favorited':'Favorite')+'</button><button class="ghost'+(t.used?' on':'')+'" data-tp="used" data-id="'+t.id+'">'+(t.used?'Used':'Mark used')+'</button><button class="ghost" style="margin-left:auto" data-tp="del" data-id="'+t.id+'">Delete</button></div></div>'; }).join('')
+    : '<div class="empty">Nothing here yet. Save from Trending or the bank, or add your own idea.</div>';
+  Array.prototype.forEach.call($('savedList').querySelectorAll('[data-tp]'),function(b){ b.onclick=function(){
+    if(!db) return; var id=b.getAttribute('data-id'), a=b.getAttribute('data-tp'), t=topics.filter(function(x){return x.id===id;})[0]; if(!t) return;
+    if(a==='del') db.doc('topics/'+id).delete(); else { var p={}; p[a]=!t[a]; db.doc('topics/'+id).update(p); }
+  }; });
+  renderTiles();
+}
+$('ideaForm').onsubmit=async function(e){ e.preventDefault(); var v=$('ideaInput').value.trim(); if(!v) return; if(!db){toast(DB_MSG);return;} try{ await db.collection('topics').add({title:v,source:'custom',used:false,favorite:false,createdAt:nowIso()}); $('ideaInput').value=''; toast('Idea saved'); }catch(err){ toast('Could not save the idea.'); } };
+async function ensureCycle(){
+  try{
+    var ref=db.doc('meta/cycle'), snap=await ref.get();
+    if(snap.exists){ var d=snap.data(); if(d&&Array.isArray(d.order)&&d.order.length===BANK.length){ cycleOrder=d.order; cycleStart=d.startDay; return; } }
+    var order=BANK.map(function(_,i){return i;}); for(var i=order.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=order[i]; order[i]=order[j]; order[j]=t; }
+    cycleOrder=order; cycleStart=epochDay(); await ref.set({order:order,startDay:cycleStart,createdAt:nowIso()});
+  }catch(e){}
+}
+
+/* ======================= WEIGHT ======================= */
+var START=297, GOAL=220, START_DATE='2026-09-28';
+var FOCUS=["Log start weight & waist","Track protein for 7 days","3 go-to protein breakfasts","Sunday meal planning","Veggie at every lunch","Bulk-prep protein 2x/week","Swap sugary drinks","2 new high-protein recipes","Beans, berries or oats daily","Progress photos","Eating-out game plan","Stop at first fullness","Fixed bedtime","Holiday treat plan","Plateau check","Walk after big meals","No all-or-nothing","Fresh start: reset routine","Re-measure & lift heavier","Try a new activity","Protein-only snacks","Phone-free meals","Review both pace lines","Portions without tracking","Next-phase talk with doctor","Final weigh-in & celebrate!"];
+var STRETCH=[294,291,288,285,282,279,276,273,270,267,264,261,258,256,253,250,247,244,241,238,235,232,229,226,223,220];
+var STEADY=[295,293,291,289,287,285,283,281,279,277,275,273,271,269,267,265,263,261,259,257,255,253,251,249,247,245];
+var CHECKIN=[5,10,15,19,23,26];
+var PHASES=[
+  {name:'Phase 1: Foundation',move:'Walk 20–30 min daily. Strength 2x/week (bodyweight).',from:1,to:4},
+  {name:'Phase 2: Momentum',move:'About 7,000 steps. Strength 2–3x/week, add bands or dumbbells.',from:5,to:10},
+  {name:'Phase 3: Push Through',move:'About 8,500 steps. Strength 3x/week. One long walk or bike.',from:11,to:18},
+  {name:'Phase 4: Strong Finish',move:'About 10,000 steps. Heavier strength 3x/week. Two cardio sessions.',from:19,to:26}
+];
+var HABITS=[
+  {id:'protein',label:'Protein',goal:'120+ g'},{id:'water',label:'Water',goal:'~100 oz'},{id:'fiber',label:'Fiber',goal:'25–30 g'},
+  {id:'steps',label:'Steps',goal:'5k → 10k'},{id:'strength',label:'Strength',goal:'2–3x / week'},{id:'sleep',label:'Sleep',goal:'7–8 hours'}
+];
+function weekDate(n){ var d=parseYmd(START_DATE); d.setDate(d.getDate()+(n-1)*7); return ymd(d); }
+function weekRow(n){ n=Math.max(1,Math.min(26,n)); return {n:n,date:weekDate(n),stretch:STRETCH[n-1],steady:STEADY[n-1],focus:FOCUS[n-1]}; }
+function currentWeek(){ var days=Math.floor((parseYmd(ymd(new Date()))-parseYmd(START_DATE))/86400000); return Math.max(1,Math.min(26,Math.floor(days/7)+1)); }
+var wlog=[], habits={}, habitDate=ymd(new Date());
+function latestWeight(){ var w=wlog.filter(function(e){return e.weight;}).sort(function(a,b){return (b.date||'').localeCompare(a.date||'');}); return w[0]||null; }
+function logPath(){ return 'data/users/'+uid+'/journey/log'; }
+function habitPath(){ return 'data/users/'+uid+'/journey/habits'; }
+wireTabs('data-wtab','wtab-');
+
+function renderWeight(){
+  var wk=currentWeek(), latest=latestWeight();
+  $('wsWeek').textContent=wk;
+  $('wsLatest').textContent=latest?latest.weight:'–';
+  $('wsDown').textContent=latest?Math.round((START-latest.weight)*10)/10:'–';
+  if(!$('wDate').value) $('wDate').value=ymd(new Date());
+  // habits
+  $('habitDay').textContent = habitDate===ymd(new Date()) ? 'Today, '+fmtDay(habitDate) : fmtDay(habitDate);
+  var h=habits[habitDate]||{};
+  $('habitGrid').innerHTML=HABITS.map(function(x){ var on=!!h[x.id]; return '<button class="habit'+(on?' on':'')+'" aria-pressed="'+on+'" data-h="'+x.id+'"><b>'+x.label+'</b><span>'+x.goal+'</span></button>'; }).join('');
+  Array.prototype.forEach.call($('habitGrid').querySelectorAll('[data-h]'),function(b){ b.onclick=function(){ toggleHabit(b.getAttribute('data-h')); }; });
+  var dots='', base=parseYmd(habitDate);
+  for(var i=6;i>=0;i--){ var d=new Date(base); d.setDate(d.getDate()-i); var k=ymd(d), hv=habits[k]||{}; var cnt=HABITS.filter(function(x){return hv[x.id];}).length;
+    dots+='<div class="wd"><i style="background:'+(cnt===0?'var(--line)':(cnt>=HABITS.length?'var(--pink)':'color-mix(in srgb, var(--pink) '+(25+cnt*10)+'%, var(--line))'))+'"></i>'+d.toLocaleDateString(undefined,{weekday:'narrow'})+'<br>'+cnt+'/6</div>'; }
+  $('weekDots').innerHTML=dots;
+  // chart
+  renderChart();
+  // table
+  var rows=wlog.slice().sort(function(a,b){return (b.date||'').localeCompare(a.date||'');});
+  $('logTable').innerHTML = rows.length ? '<table><thead><tr><th>Date</th><th>Weight</th><th>Waist</th><th>Hips</th><th>How I feel</th><th></th></tr></thead><tbody>'+
+    rows.map(function(r){ return '<tr><td>'+esc(fmtDay(r.date))+'</td><td class="num">'+(r.weight||'')+'</td><td class="num">'+(r.waist||'')+'</td><td class="num">'+(r.hips||'')+'</td><td>'+esc(r.feel||'')+'</td><td><button class="xbtn" aria-label="Delete entry" data-dl="'+r.id+'">×</button></td></tr>'; }).join('')+'</tbody></table>'
+    : '<p class="note">No entries yet. Your weigh-ins and measurements will list here.</p>';
+  Array.prototype.forEach.call($('logTable').querySelectorAll('[data-dl]'),function(b){ b.onclick=function(){ if(db) db.doc(logPath()+'/'+b.getAttribute('data-dl')).delete().then(function(){toast('Entry deleted');}); }; });
+  // plan table
+  var byWeek={}; wlog.forEach(function(e){ if(e.week) byWeek[e.week]=e; });
+  $('phaseList').innerHTML=PHASES.map(function(p){
+    var rowsH=''; for(var n=p.from;n<=p.to;n++){ var r=weekRow(n), e=byWeek[n], star=CHECKIN.indexOf(n)>-1;
+      var res=''; if(e&&e.weight){ res = e.weight<=r.stretch ? '<div class="res" style="color:var(--good)">Ahead of stretch</div>' : (e.weight<=r.steady ? '<div class="res" style="color:var(--good)">In the win zone</div>' : '<div class="res" style="color:var(--warn)">Above steady</div>'); }
+      rowsH+='<div class="wk'+(n===wk?' now':'')+'"><div class="n">'+n+'<small>'+esc(parseYmd(r.date).toLocaleDateString(undefined,{month:'short',day:'numeric'}))+'</small></div>'+
+        '<div class="focus">'+esc(r.focus)+(star?' <span class="star">★ check-in</span>':'')+'<div class="tg">Stretch '+r.stretch+' | Steady '+r.steady+'</div></div>'+
+        '<div><input type="number" step="0.1" inputmode="decimal" id="wk-'+n+'" aria-label="My weight, week '+n+'" placeholder="lbs" value="'+(e&&e.weight?e.weight:'')+'" data-wk="'+n+'">'+res+'</div></div>';
+    }
+    return '<div class="phase"><div class="phase-h"><h3>'+esc(p.name)+'</h3><p>'+esc(p.move)+'</p></div>'+rowsH+'</div>';
+  }).join('');
+  Array.prototype.forEach.call($('phaseList').querySelectorAll('[data-wk]'),function(inp){ inp.onchange=function(){ saveWeek(+inp.getAttribute('data-wk'), inp.value); }; });
+  renderTiles();
+}
+function renderChart(){
+  var W=640,H=300,L=44,R=14,T=14,B=34;
+  var pts=wlog.filter(function(e){return e.weight;}).map(function(e){ var days=(parseYmd(e.date)-parseYmd(START_DATE))/86400000; return {x:days/7+1,y:+e.weight}; }).filter(function(p){return p.x>=0.5&&p.x<=27;}).sort(function(a,b){return a.x-b.x;});
+  var ys=[STEADY[0],START,GOAL].concat(pts.map(function(p){return p.y;}));
+  var yMax=Math.ceil((Math.max.apply(null,ys)+3)/10)*10, yMin=Math.floor((Math.min.apply(null,ys)-3)/10)*10;
+  var X=function(w){return L+(w-1)/25*(W-L-R);}, Y=function(v){return T+(yMax-v)/(yMax-yMin)*(H-T-B);};
+  var g='';
+  for(var v=yMin; v<=yMax; v+=10){ g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var(--line)" stroke-width="1"/><text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end" font-size="11" fill="var(--muted)">'+v+'</text>'; }
+  [1,5,10,15,19,23,26].forEach(function(w){ g+='<text x="'+X(w)+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="var(--muted)">Wk '+w+'</text>'; });
+  var band='M'+STRETCH.map(function(v,i){return X(i+1)+' '+Y(v);}).join(' L')+' L'+STEADY.slice().reverse().map(function(v,i){return X(26-i)+' '+Y(v);}).join(' L')+'Z';
+  var line=function(arr,col,dash){ return '<polyline fill="none" stroke="'+col+'" stroke-width="2.5" '+(dash?'stroke-dasharray="6 5" ':'')+'points="'+arr.map(function(v,i){return X(i+1)+','+Y(v);}).join(' ')+'"/>'; };
+  var mine=''; if(pts.length){ mine='<polyline fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" points="'+pts.map(function(p){return X(p.x)+','+Y(p.y);}).join(' ')+'"/>'+pts.map(function(p,i){ return '<circle cx="'+X(p.x)+'" cy="'+Y(p.y)+'" r="'+(i===pts.length-1?6:3.5)+'" fill="'+(i===pts.length-1?'var(--pink)':'var(--ink)')+'" stroke="var(--surface)" stroke-width="2"/>'; }).join(''); var lp=pts[pts.length-1]; mine+='<text x="'+Math.min(X(lp.x)+10,W-R-40)+'" y="'+(Y(lp.y)-10)+'" font-size="12" font-weight="700" fill="var(--ink)">'+lp.y+'</text>'; }
+  var wk=currentWeek();
+  $('chart').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Weight over 26 weeks against stretch and steady pace lines">'+g+
+    '<path d="'+band+'" fill="var(--soft)"/>'+
+    '<line x1="'+X(wk)+'" x2="'+X(wk)+'" y1="'+T+'" y2="'+(H-B)+'" stroke="var(--pink)" stroke-width="1" stroke-dasharray="2 4"/>'+
+    line(STRETCH,'var(--pink)',false)+line(STEADY,'var(--muted)',true)+mine+'</svg>';
+}
+async function toggleHabit(id){
+  if(!db||!uid){ toast(DB_MSG); return; }
+  var cur=Object.assign({},habits[habitDate]||{}); cur[id]=!cur[id]; cur.date=habitDate; habits[habitDate]=cur; renderWeight();
+  try{ await db.doc(habitPath()+'/'+habitDate).set(cur); }catch(e){ toast('Could not save the habit.'); }
+}
+$('habitPrev').onclick=function(){ var d=parseYmd(habitDate); d.setDate(d.getDate()-1); habitDate=ymd(d); renderWeight(); };
+$('habitNext').onclick=function(){ var d=parseYmd(habitDate); d.setDate(d.getDate()+1); if(ymd(d)<=ymd(new Date())){ habitDate=ymd(d); renderWeight(); } };
+function weekFor(date){ var days=Math.round((parseYmd(date)-parseYmd(START_DATE))/86400000); return (days>=-3 && days<=26*7) ? Math.max(1,Math.min(26,Math.round(days/7)+1)) : null; }
+async function saveWeek(n, val){
+  if(!db||!uid){ toast(DB_MSG); return; }
+  var id='wk-'+pad2(n);
+  try{
+    if(val===''||isNaN(+val)){ await db.doc(logPath()+'/'+id).delete(); return; }
+    var prev=wlog.filter(function(e){return e.id===id;})[0]||{};
+    await db.doc(logPath()+'/'+id).set(Object.assign({},prev.id?{waist:prev.waist||'',hips:prev.hips||'',feel:prev.feel||''}:{},{week:n,date:weekDate(n),weight:Math.round(+val*10)/10,updatedAt:nowIso()}));
+    toast('Week '+n+' saved');
+  }catch(e){ toast('Could not save that weigh-in.'); }
+}
+$('weighForm').onsubmit=async function(e){
+  e.preventDefault();
+  if(!db||!uid){ toast(DB_MSG); return; }
+  var date=$('wDate').value, w=+$('wWeight').value; if(!date||!w) return;
+  var wk=weekFor(date);
+  var data={date:date,weight:Math.round(w*10)/10,waist:$('wWaist').value?+$('wWaist').value:'',hips:$('wHips').value?+$('wHips').value:'',feel:$('wFeel').value.trim(),updatedAt:nowIso()};
+  try{
+    // A weigh-in on a plan week's date fills that week's row; any other day is its own entry.
+    if(wk && weekDate(wk)===date){ data.week=wk; await db.doc(logPath()+'/wk-'+pad2(wk)).set(data); }
+    else await db.doc(logPath()+'/d-'+date).set(data);
+    ['wWeight','wWaist','wHips','wFeel'].forEach(function(i){$(i).value='';});
+    toast('Weigh-in saved');
+  }catch(err){ toast('Could not save the weigh-in.'); }
+};
+
+/* ======================= BOOT ======================= */
+renderLanding(); renderEvents(); renderTea(); renderWeight();
+(function(){ var h=(location.hash||'').replace('#',''); var v=VIEWS[h]?h:(store('hq:view')||'home'); go(VIEWS[v]?v:'home'); })();
+
+/* ---------- site storage: a small store that talks to /api/data ---------- */
+var STORE={}, LISTENERS={};
+function collName(path){ var p=String(path).split('/'); return p[p.length-1]; }
+function snapOf(c){ var arr=(STORE[c]||[]).slice(); return {docs:arr.map(function(d){ var x=Object.assign({},d); var id=x.id; delete x.id; return {id:id,data:function(){return x;}}; })}; }
+function notify(c){ (LISTENERS[c]||[]).forEach(function(fn){ try{ fn(snapOf(c)); }catch(e){ console.warn(e); } }); }
+async function api(method,url,body){
+  var r=await fetch(url,{method:method,headers:body?{'Content-Type':'application/json'}:{},body:body?JSON.stringify(body):undefined,credentials:'same-origin'});
+  var j={}; try{ j=await r.json(); }catch(e){}
+  if(r.status===401){ showLogin('Your session ended. Sign in again.'); throw new Error('signed out'); }
+  if(!r.ok) throw new Error(j.error||('Request failed ('+r.status+')'));
+  return j;
+}
+function upsertLocal(c,id,data){ var list=STORE[c]||(STORE[c]=[]); var i=list.findIndex(function(d){return d.id===id;}); var doc=Object.assign({id:id},data); if(i>-1) list[i]=doc; else list.push(doc); notify(c); }
+function removeLocal(c,id){ STORE[c]=(STORE[c]||[]).filter(function(d){return d.id!==id;}); notify(c); }
+function docRef(path){
+  var parts=String(path).split('/'), id=parts.pop(), c=collName(parts.join('/'));
+  var cur=function(){ return (STORE[c]||[]).filter(function(d){return d.id===id;})[0]; };
+  return {
+    get:async function(){ var d=cur(); return {exists:!!d,data:function(){ var x=Object.assign({},d); delete x.id; return x; }}; },
+    set:async function(data){ var prev=cur(); upsertLocal(c,id,data); try{ await api('POST','/api/data',{c:c,id:id,data:data}); }catch(e){ if(prev) upsertLocal(c,id,prev); else removeLocal(c,id); throw e; } },
+    update:async function(patch){ var prev=cur(); upsertLocal(c,id,Object.assign({},prev||{},patch)); try{ await api('POST','/api/data',{c:c,id:id,data:patch,merge:true}); }catch(e){ if(prev) upsertLocal(c,id,prev); throw e; } },
+    delete:async function(){ var prev=cur(); removeLocal(c,id); try{ await api('DELETE','/api/data?c='+encodeURIComponent(c)+'&id='+encodeURIComponent(id)); }catch(e){ if(prev) upsertLocal(c,id,prev); throw e; } },
+    onSnapshot:function(fn){ var h=function(){ var d=cur(); fn({exists:!!d,data:function(){ var x=Object.assign({},d); delete x.id; return x; }}); }; (LISTENERS[c]||(LISTENERS[c]=[])).push(function(){h();}); h(); return function(){}; }
+  };
+}
+function collRef(path){
+  var c=collName(path);
+  var q={
+    orderBy:function(){return q;}, limit:function(){return q;}, where:function(){return q;},
+    get:async function(){ return snapOf(c); },
+    onSnapshot:function(fn){ (LISTENERS[c]||(LISTENERS[c]=[])).push(fn); fn(snapOf(c)); return function(){}; },
+    doc:function(id){ return docRef(c+'/'+id); },
+    add:async function(data){ var r=await api('POST','/api/data',{c:c,data:data}); upsertLocal(c,r.id,data); return {id:r.id}; }
+  };
+  return q;
+}
+var siteDb={ collection:collRef, doc:docRef };
+
+async function loadAll(){
+  var j=await api('GET','/api/data?all=1');
+  Object.keys(j.collections||{}).forEach(function(c){ STORE[c]=j.collections[c]; notify(c); });
+}
+function wireRefresh(root){
+  Array.prototype.forEach.call(root.querySelectorAll('[data-refresh]'),function(b){ b.onclick=async function(){
+    var what=b.getAttribute('data-refresh');
+    b.disabled=true; b.textContent=what==='events'?'Searching… this takes 1–3 minutes':'Pulling headlines… about a minute';
+    try{ var r=await api('POST','/api/refresh?what='+what); await loadAll(); toast((r.added||0)+(what==='events'?' events found':' headlines added')); }
+    catch(e){ if(e.message!=='signed out') toast(e.message); }
+    b.disabled=false; b.textContent=what==='events'?'Search now':'Pull now';
+  }; });
+}
+
+/* ---------- sign in ---------- */
+function showLogin(msg){ $('appView').hidden=true; $('loginView').hidden=false; $('loginMsg').textContent=msg||''; setTimeout(function(){ $('pw').focus(); },50); }
+$('loginForm').onsubmit=async function(e){
+  e.preventDefault(); $('loginMsg').textContent='Checking…';
+  try{
+    var r=await fetch('/api/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('pw').value}),credentials:'same-origin'});
+    var j=await r.json();
+    if(!r.ok){ $('loginMsg').textContent=j.error||'Could not sign in.'; return; }
+    $('pw').value=''; startApp(j);
+  }catch(err){ $('loginMsg').textContent='Could not reach the site. Check your connection.'; }
+};
+$('signOutBtn').onclick=async function(){ try{ await fetch('/api/session',{method:'DELETE',credentials:'same-origin'}); }catch(e){} STORE={}; showLogin('Signed out.'); };
+
+var started=false;
+async function startApp(status){
+  $('loginView').hidden=true; $('appView').hidden=false;
+  if(status && !status.kv){ toast('Storage is not connected yet. Add Upstash Redis in Vercel.'); }
+  db=siteDb; uid='me'; $('editLandingBtn').hidden=false;
+  if(!started){
+    started=true;
+    db.doc('meta/landing').onSnapshot(function(s){ if(s.exists){ var d=s.data(); landing={kicker:d.kicker||'',title:d.title||'The Queendom HQ',note:d.note||'',quote:d.quote||''}; renderLanding(); } });
+    db.collection('eventsFound').onSnapshot(function(s){ found=s.docs.map(function(d){return Object.assign({id:d.id},d.data());}); renderEvents(); });
+    db.collection('plan').onSnapshot(function(s){ plan=s.docs.map(function(d){return Object.assign({id:d.id},d.data());}); renderEvents(); });
+    db.collection('igPages').onSnapshot(function(s){ igLoaded=true; igPages=s.docs.map(function(d){return Object.assign({id:d.id},d.data());}).sort(function(a,b){return (a.addedAt||'').localeCompare(b.addedAt||'');}); renderIg(); });
+    db.collection('trending').onSnapshot(function(s){ trending=s.docs.map(function(d){return Object.assign({id:d.id},d.data());}); renderTea(); });
+    db.collection('topics').onSnapshot(function(s){ topics=s.docs.map(function(d){return Object.assign({id:d.id},d.data());}); renderTea(); });
+    db.collection('log').onSnapshot(function(s){ wlog=s.docs.map(function(d){return Object.assign({id:d.id},d.data());}); renderWeight(); });
+    db.collection('habits').onSnapshot(function(s){ var m={}; s.docs.forEach(function(d){ m[d.id]=d.data(); }); habits=m; renderWeight(); });
+    window.addEventListener('focus',function(){ loadAll().catch(function(){}); });
+  }
+  try{ await loadAll(); await ensureCycle(); renderTea(); }
+  catch(e){ if(e.message!=='signed out') toast(e.message); }
+}
+
+(async function(){
+  try{
+    var r=await fetch('/api/session',{credentials:'same-origin'}); var j=await r.json();
+    if(j.authed) startApp(j); else showLogin(j.passwordSet===false?'The site password is not set yet. Add APP_PASSWORD in Vercel.':'');
+  }catch(e){ showLogin('Could not reach the site. Check your connection.'); }
+})();
+})();
+</script>
+</body>
+</html>

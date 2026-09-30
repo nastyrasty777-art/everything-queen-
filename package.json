@@ -1,0 +1,7 @@
+{
+  "name": "everythingqueen",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Queendom HQ: LA event planner, Tea Lab and the 26-week journey, for everythingqueen.com",
+  "engines": { "node": ">=18" }
+}
